@@ -191,6 +191,12 @@ brepository_default_settings = {
           <i class="fa fa-file-word-o fa-stack-1x fa-inverse"></i>
         </span>
       """,
+      'doc': """
+        <span class="fa-stack fa-2x">
+          <i class="fa fa-square fa-stack-2x text-muted"></i>
+          <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
+        </span>
+      """,      
     },
     'data-source': None,
     'set': None,
@@ -479,4 +485,3 @@ def register():
     signals.page_generator_context.connect(process_page_metadata)
 
     signals.content_object_init.connect(brepository)
-

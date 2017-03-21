@@ -1,7 +1,7 @@
 Pelican-brepository - File repository for Pelican
 =================================================
 
-`pelican-brepository` is an open source Pelican plugin to produce personnel listings from yaml data structures. The plugin is developed to be used with Markdown content and Bootstrap 3 based template. 
+`pelican-brepository` is an open source Pelican plugin to produce personnel listings from yaml data structures. The plugin is developed to be used with Markdown content and Bootstrap 3 based template.
 
 **Author**
 
@@ -33,7 +33,7 @@ Enable `pelican-brepository` with:
     PLUGINS = ['pelican-brepository']
 
 Insert personnel list or panel into the page template:
- 
+
     {% if page.brepository %}
         {{ page.brepository }}
     {% endif %}
@@ -47,20 +47,20 @@ Insert personnel list or panel into the article template:
 Usage
 =====
 
-Personnel listing generation is triggered for the page either by setting BPERSONNEL metadata for the content (page or article) or using `<div>` with class `brepository` or `brepository-item`. 
+Personnel listing generation is triggered for the page either by setting BPERSONNEL metadata for the content (page or article) or using `<div>` with class `brepository` or `brepository-item`.
 
 Layouts
 
 - **brepository**, repository listing  
 - **brepository-item**, individual repository item information card
 
-There is two layout modes available for both of these: `panel` and `list`. 
+There is two layout modes available for both of these: `panel` and `list`.
 
 ## Repository registry
 
-Registry has two parts: 
+Registry has two parts:
     - **`repository`** containing basic information of each repository item
-    - **`sets`**, list of items assigned to the set 
+    - **`sets`**, list of items assigned to the set
 
 Example yaml-file:
 
@@ -84,12 +84,12 @@ Example yaml-file:
         type: matlab-package
         version: 1.0.1
         package-type: zip      
-    
+
       - name: repo1
         title: Test repository
         url: https://github.com/toni-heittola/pelican-btoc
         type: git
-        
+
       - name: latex-template
         title: Latex template
         url: latex_template.zip
@@ -103,19 +103,19 @@ Example yaml-file:
         size: 12 KB
         package-type: doc
         type: word    
-                   
+
     sets:
       file_set1:
         - file1
         - repo1
         - file2
-    
+
 The default templates support following fields:
 
 - name
 - title
 - url
-- type, valid values [audio, git, python-package, matlab-package, latex, word] to add more types use BREPOSITORY_TYPE_ICONS global variable
+- type, valid values [audio, git, python-package, matlab-package, latex, word, doc] to add more types use BREPOSITORY_TYPE_ICONS global variable
 - version
 - package-type
 - size
@@ -143,7 +143,7 @@ Parameters for the plugin can be set in `pelicanconf.py' with following paramete
 
 | Parameter                 | Example value     | Description  |
 |---------------------------|-----------|--------------|
-| BREPOSITORY                | True      | Enable brepository listing for the page | 
+| BREPOSITORY                | True      | Enable brepository listing for the page |
 | BREPOSITORY_SOURCE         | content/data/repository.yaml | Registry file |
 | BREPOSITORY_SET            | set1 | Repository set used, if empty full repository is used.   |
 | BREPOSITORY_MODE           | panel | Layout type, panel or list |
@@ -160,10 +160,10 @@ Example:
     brepository: True
     brepository_set: set1
     brepository_header: Files
-        
+
 Repository listing is available in template in variable `page.brepository` or `article.brepository`
-   
-### Div wise parameters 
+
+### Div wise parameters
 
 Valid for `<div>` classes `brepository` and `brepository-item`:
 
@@ -184,7 +184,7 @@ Valid for `brepository-item`:
 Example listing:
 
     <div class="brepository" data-source="content/data/repository.yaml" data-set="set1"></div>
-    
+
 Example of repository item:   
 
     Title: Test page
@@ -195,4 +195,3 @@ Example of repository item:
     brepository_header: People    
     brepository_source: content/data/repository.yaml
     <div class="brepository-item" data-item="file1"></div>
-    
