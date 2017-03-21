@@ -17,7 +17,6 @@ import datetime
 import yaml
 import operator
 import re
-from IPython import embed
 
 logger = logging.getLogger(__name__)
 __version__ = '0.1.0'
