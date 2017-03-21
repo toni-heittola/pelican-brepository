@@ -52,7 +52,7 @@ brepository_default_settings = {
                     <a class="icon" href="{{url}}">
                     {{type_icon}}
                     </a>
-                    {% if size %}<span class="small text-muted">{{size}}</span>{% endif %}
+                    {% if size %}<span class="clearfix small text-muted">{{size}}</span>{% endif %}
                 </td>
                 {% endif %}
                 <td class="{{item_css}}">
@@ -195,7 +195,7 @@ brepository_default_settings = {
           <i class="fa fa-square fa-stack-2x text-muted"></i>
           <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
         </span>
-      """,      
+      """,
     },
     'data-source': None,
     'set': None,
