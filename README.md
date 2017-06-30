@@ -83,7 +83,8 @@ Example yaml-file:
         url: http://foo.bar/file3.zip
         type: matlab-package
         version: 1.0.1
-        package-type: zip      
+        package-type: zip
+        password: test
 
       - name: repo1
         title: Test repository
@@ -121,6 +122,7 @@ The default templates support following fields:
 - size
 - DOI
 - DOI_img
+- password
 
 ## Parameters
 
