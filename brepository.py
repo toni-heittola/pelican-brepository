@@ -59,7 +59,7 @@ brepository_default_settings = {
                     <div class="row">
                         <div class="col-md-12">
                         {% if url %}
-                        <a href="{{url}}">
+                        <a href="{{url}}" target="_blank">
                         {% endif %}
                         {% if title %}
                             <h5>{{title}}</h5>
@@ -91,7 +91,7 @@ brepository_default_settings = {
             </tr>
         """,
         'list': """
-            <a class="list-group-item {{item_color}}" href="{{url}}">
+            <a class="list-group-item {{item_color}}" href="{{url}}" target="_blank">
             <div class="row">
                 {% if type_icon %}
                 <div class="col-md-1 col-sm-2">
@@ -130,14 +130,14 @@ brepository_default_settings = {
         <div class="row">
             {% if type_icon %}
             <div class="col-md-1">
-                <a class="icon" href="{{url}}">
+                <a class="icon" href="{{url}}" target="_blank">
                 {{type_icon}}
                 </a>
             </div>
             {% endif %}
             <div class="col-md-11">
                 {% if url %}
-                <a href="{{url}}">
+                <a href="{{url}}" target="_blank">
                 {% endif %}
                 {% if title %}
                     <span style="font-size:20px;">{{title}} <i class="fa fa-download"></i></span>
@@ -213,7 +213,7 @@ brepository_default_settings = {
           <i class="fa fa-square fa-stack-2x text-muted"></i>
           <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
         </span>
-      """,      
+      """,
     },
     'data-source': None,
     'set': None,
