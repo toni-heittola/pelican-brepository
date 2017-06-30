@@ -52,7 +52,7 @@ brepository_default_settings = {
                     <a class="icon" href="{{url}}">
                     {{type_icon}}
                     </a>
-                    {% if size %}<span class="small text-muted">{{size}}</span>{% endif %}
+                    {% if size %}<span class="clearfix small text-muted">{{size}}</span>{% endif %}
                 </td>
                 {% endif %}
                 <td class="{{item_css}}">
@@ -79,6 +79,12 @@ brepository_default_settings = {
                                 {% endif %}
                             </span>
                             {% endif %}
+                            {% if password%}
+                            <br>
+                            <strong>
+                            password "{{password}}"
+                            </strong>
+                            {% endif %}
                         </div>
                     </div>
                 </td>
@@ -88,11 +94,11 @@ brepository_default_settings = {
             <a class="list-group-item {{item_color}}" href="{{url}}">
             <div class="row">
                 {% if type_icon %}
-                <div class="col-md-1">
+                <div class="col-md-1 col-sm-2">
                     {{type_icon}}
                 </div>
                 {% endif %}
-                <div class="col-md-11">
+                <div class="col-md-11 col-sm-10">
                     {% if title %}
                         <h4 class="list-group-item-heading {{item_css}}">{{title}} <i class="fa fa-download"></i></h4>
                     {% endif %}
@@ -100,7 +106,7 @@ brepository_default_settings = {
                     <span class="text-muted">({{size}})</span>
                     {% endif %}
                     <br>
-                    {% if version or package_type%}
+                    {% if version or package_type or password%}
                     <span class="text-muted">
                     {% if version %}
                     version {{version}}
@@ -109,6 +115,12 @@ brepository_default_settings = {
                     (.{{package_type}})
                     {% endif %}
                     </span>
+                    {% endif %}
+                    {% if password%}
+                    <br>
+                    <strong>
+                    password "{{password}}"
+                    </strong>
                     {% endif %}
                 </div>
             </div>
@@ -140,7 +152,7 @@ brepository_default_settings = {
                 {% if DOI %}<a href="{{DOI}}">{% endif %}
                 {% if DOI_img %}{{DOI_img}}{% endif %}
                 {% if DOI %}</a>{% endif %}
-                {% if version or package_type%}
+                {% if version or package_type or password%}
                 <span class="text-muted">
                 {% if version %}
                 version {{version}}
@@ -149,6 +161,12 @@ brepository_default_settings = {
                 (.{{package_type}})
                 {% endif %}
                 </span>
+                {% endif %}
+                {% if password%}
+                <br>
+                <strong>
+                password "{{password}}"
+                </strong>
                 {% endif %}
             </div>
         </div>
@@ -285,6 +303,7 @@ def generate_listing_item(item_data, settings):
                                          DOI=item_data['DOI'] if 'DOI' in item_data else '',
                                          DOI_img=item_data['DOI_img'] if 'DOI_img' in item_data else '',
                                          version=item_data['version'] if 'version' in item_data else '',
+                                         password=item_data['password'] if 'password' in item_data else '',
                                          package_type=item_data['package-type'] if 'package-type' in item_data else '',
                                          ), "html.parser")
     return html.decode()
@@ -311,6 +330,7 @@ def generate_item_card(settings):
     else:
         type_icon = None
     template = Template(settings['item-card'].strip('\t\r\n').replace('&gt;', '>').replace('&lt;', '<'))
+
     html = BeautifulSoup(template.render(site_url=settings['site-url'],
                                          type_icon= type_icon,
                                          title=item_data['title'] if 'title' in item_data else '',
@@ -320,6 +340,7 @@ def generate_item_card(settings):
                                          DOI=item_data['DOI'] if 'DOI' in item_data else '',
                                          DOI_img=item_data['DOI_img'] if 'DOI_img' in item_data else '',
                                          version=item_data['version'] if 'version' in item_data else '',
+                                         password=item_data['password'] if 'password' in item_data else '',
                                          package_type=item_data['package-type'] if 'package-type' in item_data else '',
                                          ), "html.parser")
 
