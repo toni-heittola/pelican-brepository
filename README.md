@@ -116,7 +116,7 @@ The default templates support following fields:
 - name
 - title
 - url
-- type, valid values [audio, git, python-package, matlab-package, latex, word, doc] to add more types use BREPOSITORY_TYPE_ICONS global variable
+- type, valid values [audio, git, python, jquery, php, c, cplusplus, html5, python-package, matlab-package, latex, word, doc] to add more types use BREPOSITORY_TYPE_ICONS global variable
 - version
 - package-type
 - size
