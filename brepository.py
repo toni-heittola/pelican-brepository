@@ -39,9 +39,11 @@ brepository_default_settings = {
             </div>
         """,
         'list': """
-            {% if header %}<h3 class="section-heading text-center">{{header}}</h3>{% endif %}
+            {% if header %}
+                <h3 class="section-heading text-center">{{header}}</h3>
+            {% endif %}
             <div class="list-group brepository-container">
-            {{list}}
+                {{list}}
             </div>
         """},
     'item-template': {
@@ -79,6 +81,12 @@ brepository_default_settings = {
                                 {% endif %}
                             </span>
                             {% endif %}
+                            {% if password%}
+                            <br>
+                            <strong>
+                            password "{{password}}"
+                            </strong>
+                            {% endif %}
                         </div>
                     </div>
                 </td>
@@ -88,27 +96,33 @@ brepository_default_settings = {
             <a class="list-group-item {{item_color}}" href="{{url}}" target="_blank">
             <div class="row">
                 {% if type_icon %}
-                <div class="col-md-1">
+                <div class="col-md-1 col-sm-2">
                     {{type_icon}}
                 </div>
                 {% endif %}
-                <div class="col-md-11">
+                <div class="col-md-11 col-sm-10">
                     {% if title %}
                         <h4 class="list-group-item-heading {{item_css}}">{{title}} <i class="fa fa-download"></i></h4>
                     {% endif %}
                     {% if size %}
-                    <span class="text-muted">({{size}})</span>
+                        <span class="text-muted">({{size}})</span>
+                        <br>
                     {% endif %}
-                    <br>
-                    {% if version or package_type%}
-                    <span class="text-muted">
-                    {% if version %}
-                    version {{version}}
+                    {% if version or package_type or password %}
+                        <span class="text-muted">
+                        {% if version %}
+                            version {{version}}
+                        {% endif %}
+                        {% if package_type %}
+                            (.{{package_type}})
+                        {% endif %}
+                        </span>
                     {% endif %}
-                    {% if package_type %}
-                    (.{{package_type}})
-                    {% endif %}
-                    </span>
+                    {% if password %}
+                        <br>
+                        <strong>
+                        password "{{password}}"
+                        </strong>
                     {% endif %}
                 </div>
             </div>
@@ -140,7 +154,7 @@ brepository_default_settings = {
                 {% if DOI %}<a href="{{DOI}}">{% endif %}
                 {% if DOI_img %}{{DOI_img}}{% endif %}
                 {% if DOI %}</a>{% endif %}
-                {% if version or package_type%}
+                {% if version or package_type or password%}
                 <span class="text-muted">
                 {% if version %}
                 version {{version}}
@@ -149,6 +163,12 @@ brepository_default_settings = {
                 (.{{package_type}})
                 {% endif %}
                 </span>
+                {% endif %}
+                {% if password%}
+                <br>
+                <strong>
+                password "{{password}}"
+                </strong>
                 {% endif %}
             </div>
         </div>
@@ -166,12 +186,59 @@ brepository_default_settings = {
             <i class="fa fa-github fa-stack-1x fa-inverse"></i>
         </span>
       """,
-      'python-package': """
+      'python': """
         <span class="fa-stack fa-2x">
-            <i class="fa fa-square fa-stack-2x text-warning"></i>
-            <i class="fa fa-gears fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-square fa-stack-2x text-success"></i>
+            <i class="fa icon-python fa-stack-1x fa-inverse"></i>
         </span>
       """,
+      'jquery': """
+        <span class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-info"></i>
+            <i class="fa icon-jquery fa-stack-1x fa-inverse"></i>
+        </span>
+      """,
+      'php': """
+        <span class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-warning"></i>
+            <i class="fa icon-php fa-stack-1x fa-inverse"></i>
+        </span>
+      """,
+      'javascript': """
+        <span class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-info"></i>
+            <i class="fa icon-javascript fa-stack-1x fa-inverse"></i>
+        </span>
+      """,
+      'c': """
+        <span class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-danger"></i>
+            <i class="fa icon-c fa-stack-1x fa-inverse"></i>
+        </span>
+      """,
+      'cplusplus': """
+        <span class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-danger"></i>
+            <i class="fa icon-cplusplus fa-stack-1x fa-inverse"></i>
+        </span>
+      """,
+      'html5': """
+        <span class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-warning"></i>
+            <i class="fa icon-html5 fa-stack-1x fa-inverse"></i>
+        </span>
+      """,
+
+
+
+
+      'python-package': """
+        <span class="fa-stack fa-2x">
+          <i class="fa fa-square fa-stack-2x text-warning"></i>
+          <i class="fa fa-gears fa-stack-1x fa-inverse"></i>
+        </span>
+      """,
+
       'matlab-package': """
         <span class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-info"></i>
@@ -200,6 +267,8 @@ brepository_default_settings = {
     'data-source': None,
     'set': None,
     'show': False,
+    'minified': True,
+    'generate_minified': True,
     'template-variable': False,
     'item': None,
     'site-url': '',
@@ -285,6 +354,7 @@ def generate_listing_item(item_data, settings):
                                          DOI=item_data['DOI'] if 'DOI' in item_data else '',
                                          DOI_img=item_data['DOI_img'] if 'DOI_img' in item_data else '',
                                          version=item_data['version'] if 'version' in item_data else '',
+                                         password=item_data['password'] if 'password' in item_data else '',
                                          package_type=item_data['package-type'] if 'package-type' in item_data else '',
                                          ), "html.parser")
     return html.decode()
@@ -311,6 +381,7 @@ def generate_item_card(settings):
     else:
         type_icon = None
     template = Template(settings['item-card'].strip('\t\r\n').replace('&gt;', '>').replace('&lt;', '<'))
+
     html = BeautifulSoup(template.render(site_url=settings['site-url'],
                                          type_icon= type_icon,
                                          title=item_data['title'] if 'title' in item_data else '',
@@ -320,6 +391,7 @@ def generate_item_card(settings):
                                          DOI=item_data['DOI'] if 'DOI' in item_data else '',
                                          DOI_img=item_data['DOI_img'] if 'DOI_img' in item_data else '',
                                          version=item_data['version'] if 'version' in item_data else '',
+                                         password=item_data['password'] if 'password' in item_data else '',
                                          package_type=item_data['package-type'] if 'package-type' in item_data else '',
                                          ), "html.parser")
 
@@ -407,6 +479,26 @@ def brepository(content):
             if div_html:
                 brepository_item_div.replaceWith(div_html)
 
+    if brepository_settings['show']:
+
+        if brepository_settings['minified']:
+            html_elements = {
+                'css_include': ['<link rel="stylesheet" href="' + brepository_settings['site-url'] + '/theme/css/font-mfizz.min.css">']
+             }
+        else:
+            html_elements = {
+                'css_include': ['<link rel="stylesheet" href="' + brepository_settings['site-url'] + '/theme/css/font-mfizz.css">']
+            }
+
+        if u'scripts' not in content.metadata:
+            content.metadata[u'scripts'] = []
+
+        if u'styles' not in content.metadata:
+            content.metadata[u'styles'] = []
+        for element in html_elements['css_include']:
+            if element not in content.metadata[u'styles']:
+                content.metadata[u'styles'].append(element)
+
     content._content = soup.decode()
 
 
@@ -417,6 +509,11 @@ def process_page_metadata(generator, metadata):
     """
     global brepository_default_settings, brepository_settings
     brepository_settings = copy.deepcopy(brepository_default_settings)
+
+    if u'styles' not in metadata:
+        metadata[u'styles'] = []
+    if u'scripts' not in metadata:
+        metadata[u'scripts'] = []
 
     if u'brepository' in metadata and metadata['brepository'] == 'True':
         brepository_settings['show'] = True
@@ -440,6 +537,94 @@ def process_page_metadata(generator, metadata):
     if u'brepository_header' in metadata:
         brepository_settings['header'] = metadata['brepository_header']
 
+
+def move_resources(gen):
+    """
+    Move files from js/css folders to output folder, use minified files.
+
+    """
+
+    plugin_paths = gen.settings['PLUGIN_PATHS']
+    if not os.path.exists(os.path.join(gen.output_path, 'theme', 'css')):
+        os.makedirs(os.path.join(gen.output_path, 'theme', 'css'))
+
+    if brepository_settings['minified']:
+        if brepository_settings['generate_minified']:
+            minify_css_directory(gen=gen, source='css', target='css.min')
+
+        css_target = os.path.join(gen.output_path, 'theme', 'css', 'font-mfizz.min.css')
+        for path in plugin_paths:
+            css_source = os.path.join(path, 'pelican-brepository', 'css.min', 'font-mfizz.min.css')
+
+            if os.path.isfile(css_source):
+                shutil.copyfile(css_source, css_target)
+
+            if os.path.isfile(css_target):
+                break
+    else:
+        css_target = os.path.join(gen.output_path, 'theme', 'css', 'font-mfizz.css')
+        for path in plugin_paths:
+            css_source = os.path.join(path, 'pelican-brepository', 'css', 'font-mfizz.css')
+
+            if os.path.isfile(css_source):
+                shutil.copyfile(css_source, css_target)
+
+            if os.path.isfile(css_target):
+                break
+
+    # Fonts
+    for path in plugin_paths:
+        fonts = [
+            {'target': os.path.join(gen.output_path, 'theme', 'css', 'font-mfizz.eot'),
+             'source': os.path.join(path, 'pelican-brepository', 'font', 'font-mfizz.eot')
+             },
+            {'target': os.path.join(gen.output_path, 'theme', 'css', 'font-mfizz.svg'),
+             'source': os.path.join(path, 'pelican-brepository', 'font', 'font-mfizz.svg')
+             },
+            {'target': os.path.join(gen.output_path, 'theme', 'css', 'font-mfizz.ttf'),
+             'source': os.path.join(path, 'pelican-brepository', 'font', 'font-mfizz.ttf')
+             },
+            {'target': os.path.join(gen.output_path, 'theme', 'css', 'font-mfizz.woff'),
+             'source': os.path.join(path, 'pelican-brepository', 'font', 'font-mfizz.woff')
+             },
+        ]
+
+        for item in fonts:
+            if os.path.isfile(item['source']):
+                shutil.copyfile(item['source'], item['target'])
+        all_copied = True
+        for item in fonts:
+            if not os.path.isfile(item['target']):
+                all_copied = False
+        if all_copied:
+            break
+
+def minify_css_directory(gen, source, target):
+    """
+    Move CSS resources from source directory to target directory and minify. Using rcssmin.
+
+    """
+    import rcssmin
+
+    plugin_paths = gen.settings['PLUGIN_PATHS']
+    for path in plugin_paths:
+        source_ = os.path.join(path, 'pelican-brepository', source)
+        target_ = os.path.join(path, 'pelican-brepository', target)
+        if os.path.isdir(source_):
+            if not os.path.exists(target_):
+                os.makedirs(target_)
+
+            for root, dirs, files in os.walk(source_):
+                for current_file in files:
+                    if current_file.endswith(".css"):
+                        current_file_path = os.path.join(root, current_file)
+                        with open(current_file_path) as css_file:
+                            with open(os.path.join(target_, current_file.replace('.css', '.min.css')), "w") as minified_file:
+                                minified_file.write(rcssmin.cssmin(css_file.read(), keep_bang_comments=True))
+                    elif current_file.endswith(".eot") or current_file.endswith(".svg") or current_file.endswith(".ttf") or current_file.endswith(".woff"):
+                        current_file_path = os.path.join(root, current_file)
+                        target_file = os.path.join(target_, current_file)
+                        shutil.copyfile(current_file_path, target_file)
 
 def init_default_config(pelican):
     """
@@ -468,7 +653,11 @@ def init_default_config(pelican):
     if 'BREPOSITORY_HEADER' in pelican.settings:
         brepository_default_settings['header'] = pelican.settings['BREPOSITORY_HEADER']
 
+    if 'BREPOSITORY_MINIFIED' in pelican.settings:
+        brepository_default_settings['minified'] = pelican.settings['BREPOSITORY_MINIFIED']
 
+    if 'BREPOSITORY_GENERATE_MINIFIED' in pelican.settings:
+        brepository_default_settings['generate_minified'] = pelican.settings['BREPOSITORY_GENERATE_MINIFIED']
 
     brepository_settings = copy.deepcopy(brepository_default_settings)
 
@@ -482,5 +671,6 @@ def register():
     signals.initialized.connect(init_default_config)
     signals.article_generator_context.connect(process_page_metadata)
     signals.page_generator_context.connect(process_page_metadata)
+    signals.article_generator_finalized.connect(move_resources)
 
     signals.content_object_init.connect(brepository)

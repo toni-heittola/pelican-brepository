@@ -83,7 +83,8 @@ Example yaml-file:
         url: http://foo.bar/file3.zip
         type: matlab-package
         version: 1.0.1
-        package-type: zip      
+        package-type: zip
+        password: test
 
       - name: repo1
         title: Test repository
@@ -115,12 +116,13 @@ The default templates support following fields:
 - name
 - title
 - url
-- type, valid values [audio, git, python-package, matlab-package, latex, word, doc] to add more types use BREPOSITORY_TYPE_ICONS global variable
+- type, valid values [audio, git, python, jquery, php, c, cplusplus, html5, python-package, matlab-package, latex, word, doc] to add more types use BREPOSITORY_TYPE_ICONS global variable
 - version
 - package-type
 - size
 - DOI
 - DOI_img
+- password
 
 ## Parameters
 
