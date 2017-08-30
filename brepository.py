@@ -435,7 +435,7 @@ def process_page_metadata(generator, metadata):
         brepository_settings['mode'] = metadata['brepository_mode']
 
     if u'brepository_panel_color' in metadata:
-        brepository_settings['panel_color'] = metadata['brepository_panel_color']
+        brepository_settings['panel-color'] = metadata['brepository_panel_color']
 
     if u'brepository_header' in metadata:
         brepository_settings['header'] = metadata['brepository_header']
