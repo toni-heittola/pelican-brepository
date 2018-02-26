@@ -229,9 +229,6 @@ brepository_default_settings = {
         </span>
       """,
 
-
-
-
       'python-package': """
         <span class="fa-stack fa-2x">
           <i class="fa fa-square fa-stack-2x text-warning"></i>
@@ -263,6 +260,12 @@ brepository_default_settings = {
           <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
         </span>
       """,
+      'theme': """
+        <span class="fa-stack fa-2x">
+          <i class="fa fa-square fa-stack-2x text-warning"></i>
+          <i class="fa fa-file-image-o fa-stack-1x fa-inverse"></i>
+        </span>
+      """
     },
     'data-source': None,
     'set': None,
@@ -658,6 +661,9 @@ def init_default_config(pelican):
 
     if 'BREPOSITORY_GENERATE_MINIFIED' in pelican.settings:
         brepository_default_settings['generate_minified'] = pelican.settings['BREPOSITORY_GENERATE_MINIFIED']
+
+    if 'BREPOSITORY_TYPE_ICONS' in pelican.settings:
+        brepository_default_settings['type-icons'].update(pelican.settings['BREPOSITORY_TYPE_ICONS'])
 
     brepository_settings = copy.deepcopy(brepository_default_settings)
 
