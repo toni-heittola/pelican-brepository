@@ -275,6 +275,7 @@ brepository_default_settings = {
     'template-variable': False,
     'item': None,
     'site-url': '',
+    'debug_processing': False
 }
 
 brepository_settings = copy.deepcopy(brepository_default_settings)
@@ -453,6 +454,13 @@ def brepository(content):
     brepository_item_divs = soup.find_all('div', class_='brepository-item')
 
     if brepository_divs:
+        if brepository_settings['debug_processing']:
+            logger.debug(msg='[{plugin_name}] title:[{title}] divs:[{div_count}]'.format(
+                plugin_name='brepository',
+                title=content.title,
+                div_count=len(brepository_divs)
+            ))
+
         for brepository_div in brepository_divs:
 
             # We have div in the page
@@ -468,6 +476,13 @@ def brepository(content):
             brepository_div.replaceWith(div_html)
 
     if brepository_item_divs:
+        if brepository_settings['debug_processing']:
+            logger.debug(msg='[{plugin_name}] title:[{title}] divs:[{div_count}]'.format(
+                plugin_name='brepository-item',
+                title=content.title,
+                div_count=len(brepository_item_divs)
+            ))
+
         for brepository_item_div in brepository_item_divs:
             # We have div in the page
             brepository_settings['show'] = True
@@ -602,6 +617,7 @@ def move_resources(gen):
         if all_copied:
             break
 
+
 def minify_css_directory(gen, source, target):
     """
     Move CSS resources from source directory to target directory and minify. Using rcssmin.
@@ -628,6 +644,7 @@ def minify_css_directory(gen, source, target):
                         current_file_path = os.path.join(root, current_file)
                         target_file = os.path.join(target_, current_file)
                         shutil.copyfile(current_file_path, target_file)
+
 
 def init_default_config(pelican):
     """
@@ -664,6 +681,9 @@ def init_default_config(pelican):
 
     if 'BREPOSITORY_TYPE_ICONS' in pelican.settings:
         brepository_default_settings['type-icons'].update(pelican.settings['BREPOSITORY_TYPE_ICONS'])
+
+    if 'BREPOSITORY_DEBUG_PROCESSING' in pelican.settings:
+        brepository_default_settings['debug_processing'] = pelican.settings['BREPOSITORY_DEBUG_PROCESSING']
 
     brepository_settings = copy.deepcopy(brepository_default_settings)
 

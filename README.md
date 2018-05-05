@@ -141,6 +141,9 @@ Parameters for the plugin can be set in `pelicanconf.py' with following paramete
 | BREPOSITORY_PANEL_COLOR          | String    | panel-primary |  CSS class used to color the panel template in the default template. Possible values: panel-default, panel-primary, panel-success, panel-info, panel-warning, panel-danger |
 | BREPOSITORY_HEADER               | String    | Content       | Header text  |
 | BREPOSITORY_TYPE_ICONS    | Dict       |    | Dictionary where repository item type is as key and full icon html as value. Use this inject your own custom types or override default ones. |
+| BREPOSITORY_DEBUG_PROCESSING | Boolean    | False  | Show extra information in when run with `DEBUG=1` |
+
+
 ### Content wise parameters
 
 | Parameter                 | Example value     | Description  |
