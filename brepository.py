@@ -294,8 +294,13 @@ def load_repository(source):
 
     if source and os.path.isfile(source):
         try:
-            with open(source, 'r') as field:
-                repository = yaml.load(field)
+            from distutils.version import LooseVersion
+            if LooseVersion(str(yaml.__version__)) >= "5.1":
+                with open(source, 'r') as field:
+                    repository = yaml.load(field, Loader=yaml.FullLoader)
+            else:
+                with open(source, 'r') as field:
+                    repository = yaml.load(field)
 
             if 'sets' in repository and 'repository' in repository:
                 set_data = {}
