@@ -17,6 +17,7 @@ import datetime
 import yaml
 import operator
 import re
+from io import open
 
 logger = logging.getLogger(__name__)
 __version__ = '0.1.0'
@@ -296,10 +297,10 @@ def load_repository(source):
         try:
             from distutils.version import LooseVersion
             if LooseVersion(str(yaml.__version__)) >= "5.1":
-                with open(source, 'r') as field:
+                with open(source, 'r', encoding='utf-8') as field:
                     repository = yaml.load(field, Loader=yaml.FullLoader)
             else:
-                with open(source, 'r') as field:
+                with open(source, 'r', encoding='utf-8') as field:
                     repository = yaml.load(field)
 
             if 'sets' in repository and 'repository' in repository:
@@ -382,7 +383,7 @@ def generate_item_card(settings):
     if item_data:
         item_data = item_data[0]
     else:
-        logger.warn('`pelican-brepository` failed to load item [' + str(settings['item']) + ']')
+        logger.warn('`pelican-brepository` failed to find item [' + str(settings['item']) + ']')
         return False
 
     if 'type' in item_data and item_data['type'] in settings['type-icons']:
