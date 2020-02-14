@@ -181,6 +181,18 @@ brepository_default_settings = {
             <i class="fa fa-file-audio-o fa-stack-1x fa-inverse"></i>
           </span>
       """,
+      'database': """
+          <span class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-success"></i>
+            <i class="fa fa-database fa-stack-1x fa-inverse"></i>
+          </span>
+      """,
+      'model': """
+          <span class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-success"></i>
+            <i class="fa fa-table fa-stack-1x fa-inverse"></i>
+          </span>
+      """,
       'git': """
         <span class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x "></i>
