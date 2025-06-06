@@ -23,157 +23,294 @@ logger = logging.getLogger(__name__)
 __version__ = '0.1.0'
 
 brepository_default_settings = {
+    'template-mode': 'bs3',
     'panel-color': 'panel-info',
     'header': 'Repository',
     'mode': 'panel',
     'template': {
-        'panel': """
-            <div class="panel {{ panel_color }}">
-              {% if header %}
-              <div class="panel-heading">
-                <h3 class="panel-title">{{header}}</h3>
-              </div>
-              {% endif %}
-              <table class="table brepository-container">
-              {{list}}
-              </table>
-            </div>
-        """,
-        'list': """
-            {% if header %}
-                <h3 class="section-heading text-center">{{header}}</h3>
-            {% endif %}
-            <div class="list-group brepository-container">
-                {{list}}
-            </div>
-        """},
-    'item-template': {
-        'panel': """
-            <tr>
-                {% if type_icon %}
-                <td class="text-center {{item_css}}">
-                    <a class="icon" href="{{url}}">
-                    {{type_icon}}
-                    </a>
-                    {% if size %}<span class="clearfix small text-muted">{{size}}</span>{% endif %}
-                </td>
+        'bs3': {
+            'panel': """
+                <div class="panel {{ panel_color }}">
+                  {% if header %}
+                  <div class="panel-heading">
+                    <h3 class="panel-title">{{header}}</h3>
+                  </div>
+                  {% endif %}
+                  <table class="table brepository-container">
+                  {{list}}
+                  </table>
+                </div>
+            """,
+            'list': """
+                {% if header %}
+                    <h3 class="section-heading text-center">{{header}}</h3>
                 {% endif %}
-                <td class="{{item_css}}">
-                    <div class="row">
-                        <div class="col-md-12">
-                        {% if url %}
-                        <a href="{{url}}" target="_blank">
-                        {% endif %}
-                        {% if title %}
-                            <h5>{{title}}</h5>
-                        {% endif %}
-                        {% if url %}
+                <div class="list-group brepository-container">
+                    {{list}}
+                </div>
+            """},
+        'bs5': {
+            'panel': """
+                <div class="card hidden-print">
+                  {% if header %}
+                    <h5 class="card-header {{ panel_color }} ">
+                        {{header}}
+                    </h5>                                    
+                  {% endif %}  
+                  <table class="table brepository-container mb-0">
+                  {{list}}
+                  </table>
+                </div>
+            """,
+            'list': """
+                {% if header %}<h3 class="section-heading text-center">{{header}}</h3>{% endif %}
+                <div class="list-group brepository-container mb-4">{{list}}</div>
+            """}
+    },
+    'item-template': {
+        'bs3': {
+            'panel': """
+                <tr>
+                    {% if type_icon %}
+                    <td class="text-center {{item_css}}">
+                        <a class="icon" href="{{url}}">
+                        {{type_icon}}
                         </a>
-                        {% endif %}
-                        </div>
-                        <div class="col-md-12">
-                            {% if version or package_type%}
-                            <span class="text-muted">
-                                {% if version %}
-                                version {{version}}
-                                {% endif %}
-                                {% if package_type %}
-                                (.{{package_type}})
-                                {% endif %}
-                            </span>
+                        {% if size %}<span class="clearfix small text-muted">{{size}}</span>{% endif %}
+                    </td>
+                    {% endif %}
+                    <td class="{{item_css}}">
+                        <div class="row">
+                            <div class="col-md-12">
+                            {% if url %}
+                            <a href="{{url}}" target="_blank">
                             {% endif %}
-                            {% if password%}
+                            {% if title %}
+                                <h5>{{title}}</h5>
+                            {% endif %}
+                            {% if url %}
+                            </a>
+                            {% endif %}
+                            </div>
+                            <div class="col-md-12">
+                                {% if version or package_type%}
+                                <span class="text-muted">
+                                    {% if version %}
+                                    version {{version}}
+                                    {% endif %}
+                                    {% if package_type %}
+                                    (.{{package_type}})
+                                    {% endif %}
+                                </span>
+                                {% endif %}
+                                {% if password%}
+                                <br>
+                                <strong>
+                                password "{{password}}"
+                                </strong>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            """,
+            'list': """
+                <a class="list-group-item {{item_color}}" href="{{url}}" target="_blank">
+                <div class="row">
+                    {% if type_icon %}
+                    <div class="col-md-1 col-sm-2">
+                        {{type_icon}}
+                    </div>
+                    {% endif %}
+                    <div class="col-md-11 col-sm-10">
+                        {% if title %}
+                            <h4 class="list-group-item-heading {{item_css}}">{{title}} <i class="fa fa-download"></i></h4>
+                        {% endif %}
+                        {% if size %}
+                            <span class="text-muted">({{size}})</span>
+                            <br>
+                        {% endif %}
+                        {% if version or package_type or password %}
+                            <span class="text-muted">
+                            {% if version %}
+                                version {{version}}
+                            {% endif %}
+                            {% if package_type %}
+                                (.{{package_type}})
+                            {% endif %}
+                            </span>
+                        {% endif %}
+                        {% if password %}
                             <br>
                             <strong>
                             password "{{password}}"
                             </strong>
-                            {% endif %}
-                        </div>
+                        {% endif %}
                     </div>
-                </td>
-            </tr>
-        """,
-        'list': """
-            <a class="list-group-item {{item_color}}" href="{{url}}" target="_blank">
+                </div>
+                </a>
+            """
+        },
+        'bs5': {
+            'panel': """
+                <tr>
+                    {% if type_icon %}
+                    <td class="text-center {{item_css}}">
+                        <a class="icon" href="{{url}}">
+                        {{type_icon}}
+                        </a>
+                        {% if size %}<span class="clearfix small text-muted">{{size}}</span>{% endif %}
+                    </td>
+                    {% endif %}
+                    <td class="{{item_css}}">
+                        <div class="row">
+                            <div class="col-md-12">
+                            {% if url %}
+                            <a href="{{url}}" target="_blank" class="link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
+                            {% endif %}
+                            {% if title %}
+                                <h6>{{title}}</h6>
+                            {% endif %}
+                            {% if url %}
+                            </a>
+                            {% endif %}
+                            </div>
+                            <div class="col-md-12">
+                                {% if version or package_type%}
+                                <span class="text-muted">
+                                    {% if version %}
+                                    version {{version}}
+                                    {% endif %}
+                                    {% if package_type %}
+                                    (.{{package_type}})
+                                    {% endif %}
+                                </span>
+                                {% endif %}
+                                {% if password%}
+                                <br>
+                                <strong>
+                                password "{{password}}"
+                                </strong>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            """,
+            'list': """
+                <a class="list-group-item {{item_color}}" href="{{url}}" target="_blank">
+                <div class="d-inline-flex align-items-center">
+                    {% if type_icon %}<div class="p-1">{{type_icon}}</div>{% endif %}
+                    <div class="p-1">
+                        {% if title %}
+                            <h5 class="list-group-item-heading {{item_css}}">{{title}} <i class="fa fa-download"></i></h5>
+                        {% endif %}
+                        {% if size %}<span class="text-muted">({{size}})</span><br>{% endif %}
+                        {% if version or package_type or password %}
+                            <span class="text-muted">
+                            {% if version %}version {{version}}{% endif %}
+                            {% if package_type %} (.{{package_type}}){% endif %}
+                            </span>
+                        {% endif %}
+                        {% if password %}<br><strong>password "{{password}}"</strong>{% endif %}
+                    </div>
+                </div>
+                </a>
+            """
+        },
+    },
+    'item-card': {
+        'bs3': """
             <div class="row">
                 {% if type_icon %}
-                <div class="col-md-1 col-sm-2">
+                <div class="col-md-1">
+                    <a class="icon" href="{{url}}" target="_blank">
                     {{type_icon}}
+                    </a>
                 </div>
                 {% endif %}
-                <div class="col-md-11 col-sm-10">
+                <div class="col-md-11">
+                    {% if url %}
+                    <a href="{{url}}" target="_blank">
+                    {% endif %}
                     {% if title %}
-                        <h4 class="list-group-item-heading {{item_css}}">{{title}} <i class="fa fa-download"></i></h4>
+                        <span style="font-size:20px;">{{title}} <i class="fa fa-download"></i></span>
+                    {% endif %}
+                    {% if url %}
+                    </a>
                     {% endif %}
                     {% if size %}
-                        <span class="text-muted">({{size}})</span>
-                        <br>
+                    <span class="text-muted">({{size}})</span>
                     {% endif %}
-                    {% if version or package_type or password %}
-                        <span class="text-muted">
-                        {% if version %}
-                            version {{version}}
-                        {% endif %}
-                        {% if package_type %}
-                            (.{{package_type}})
-                        {% endif %}
-                        </span>
+                    <br>
+                    {% if DOI %}<a href="{{DOI}}">{% endif %}
+                    {% if DOI_img %}{{DOI_img}}{% endif %}
+                    {% if DOI %}</a>{% endif %}
+                    {% if version or package_type or password%}
+                    <span class="text-muted">
+                    {% if version %}
+                    version {{version}}
                     {% endif %}
-                    {% if password %}
-                        <br>
-                        <strong>
-                        password "{{password}}"
-                        </strong>
+                    {% if package_type %}
+                    (.{{package_type}})
+                    {% endif %}
+                    </span>
+                    {% endif %}
+                    {% if password%}
+                    <br>
+                    <strong>
+                    password "{{password}}"
+                    </strong>
                     {% endif %}
                 </div>
             </div>
-            </a>
-        """},
-    'item-card': """
-        <div class="row">
-            {% if type_icon %}
-            <div class="col-md-1">
-                <a class="icon" href="{{url}}" target="_blank">
-                {{type_icon}}
-                </a>
+        """,
+        'bs5': """
+            <div class="d-inline-flex align-items-center mb-4">
+                {% if type_icon %}
+                <div class="p-1">
+                    <a class="icon" href="{{url}}" target="_blank">
+                    {{type_icon}}
+                    </a>
+                </div>
+                {% endif %}
+                <div class="p-1">
+                    {% if url %}
+                    <a href="{{url}}" target="_blank">
+                    {% endif %}
+                    {% if title %}
+                        <span style="font-size:20px;">{{title}} <i class="fa fa-download"></i></span>
+                    {% endif %}
+                    {% if url %}
+                    </a>
+                    {% endif %}
+                    {% if size %}
+                    <span class="text-muted">({{size}})</span>
+                    {% endif %}
+                    <br>
+                    {% if DOI %}<a href="{{DOI}}">{% endif %}
+                    {% if DOI_img %}{{DOI_img}}{% endif %}
+                    {% if DOI %}</a>{% endif %}
+                    {% if version or package_type or password%}
+                    <span class="text-muted">
+                    {% if version %}
+                    version {{version}}
+                    {% endif %}
+                    {% if package_type %}
+                    (.{{package_type}})
+                    {% endif %}
+                    </span>
+                    {% endif %}
+                    {% if password%}
+                    <br>
+                    <strong>
+                    password "{{password}}"
+                    </strong>
+                    {% endif %}
+                </div>
             </div>
-            {% endif %}
-            <div class="col-md-11">
-                {% if url %}
-                <a href="{{url}}" target="_blank">
-                {% endif %}
-                {% if title %}
-                    <span style="font-size:20px;">{{title}} <i class="fa fa-download"></i></span>
-                {% endif %}
-                {% if url %}
-                </a>
-                {% endif %}
-                {% if size %}
-                <span class="text-muted">({{size}})</span>
-                {% endif %}
-                <br>
-                {% if DOI %}<a href="{{DOI}}">{% endif %}
-                {% if DOI_img %}{{DOI_img}}{% endif %}
-                {% if DOI %}</a>{% endif %}
-                {% if version or package_type or password%}
-                <span class="text-muted">
-                {% if version %}
-                version {{version}}
-                {% endif %}
-                {% if package_type %}
-                (.{{package_type}})
-                {% endif %}
-                </span>
-                {% endif %}
-                {% if password%}
-                <br>
-                <strong>
-                password "{{password}}"
-                </strong>
-                {% endif %}
-            </div>
-        </div>
-    """,
+        """,
+    },
     'type-icons': {
       'audio': """
           <span class="fa-stack fa-2x">
@@ -366,7 +503,7 @@ def generate_listing_item(item_data, settings):
     else:
         type_icon = None
 
-    template = Template(settings['item-template'][settings['mode']].strip('\t\r\n').replace('&gt;', '>').replace('&lt;', '<'))
+    template = Template(settings['item-template'][settings['template-mode']][settings['mode']].strip('\t\r\n').replace('&gt;', '>').replace('&lt;', '<'))
     html = BeautifulSoup(template.render(site_url=settings['site-url'],
                                          type_icon=type_icon,
                                          title=item_data['title'] if 'title' in item_data else '',
@@ -402,7 +539,7 @@ def generate_item_card(settings):
         type_icon = settings['type-icons'][item_data['type']]
     else:
         type_icon = None
-    template = Template(settings['item-card'].strip('\t\r\n').replace('&gt;', '>').replace('&lt;', '<'))
+    template = Template(settings['item-card'][settings['template-mode']].strip('\t\r\n').replace('&gt;', '>').replace('&lt;', '<'))
 
     html = BeautifulSoup(template.render(site_url=settings['site-url'],
                                          type_icon= type_icon,
@@ -439,12 +576,54 @@ def generate_listing(settings):
             html += generate_listing_item(item_data=item_data, settings=settings) + "\n"
         html += "\n"
 
-        template = Template(settings['template'][settings['mode']].strip('\t\r\n').replace('&gt;', '>').replace('&lt;', '<'))
+        template = Template(settings['template'][settings['template-mode']][settings['mode']].strip('\t\r\n').replace('&gt;', '>').replace('&lt;', '<'))
+        if settings['template-mode'] == 'bs5':
+            settings['panel-color'] = process_panel_color(
+                panel_color=settings['panel-color'],
+                mode=settings['template-mode']
+            )
 
         return BeautifulSoup(template.render(list=html,
                                              header=settings['header'],
                                              site_url=settings['site-url'],
                                              panel_color=settings['panel-color'], ), "html.parser")
+
+
+def process_panel_color(panel_color, mode='bs3'):
+    text_color = ''
+
+    if mode == 'bs3':
+        if 'bg-' in panel_color:
+            panel_color = panel_color.replace('bg-', 'panel-')
+
+    elif mode == 'bs5':
+        # Convert bs3 colors
+        if panel_color.startswith('panel-'):
+            panel_color = panel_color.replace('panel-', 'bg-')
+            if 'default' not in panel_color and '-subtle' not in panel_color:
+                panel_color += '-subtle'
+
+        elif panel_color in ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'body', 'white', 'transparent']:
+            panel_color = 'bg-' + panel_color + '-subtle'
+
+        if panel_color == 'bg-default':
+            panel_color = 'bg-secondary-subtle'
+
+        # Determine the text color
+        # If subtle colors are used, use matching emphasis text color
+        if '-subtle' in panel_color and 'text-' not in panel_color:
+            text_color = ' ' + panel_color.replace('bg-', 'text-').replace('-subtle', '-emphasis')
+
+        # otherwise handcraft colors
+        elif '-subtle' not in panel_color:
+            if panel_color in ['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-dark', 'bg-black']:
+                text_color = ' text-white'
+            elif panel_color in ['bg-warning', 'bg-info', 'bg-light']:
+                text_color = ' text-dark'
+            else:
+                text_color = ' text-muted'
+
+    return panel_color + text_color
 
 
 def brepository(content):
@@ -489,6 +668,11 @@ def brepository(content):
             settings['mode'] = get_attribute(brepository_div.attrs, 'mode', brepository_settings['mode'])
             settings['header'] = get_attribute(brepository_div.attrs, 'header', brepository_settings['header'])
             settings['panel-color'] = get_attribute(brepository_div.attrs, 'panel-color', brepository_settings['panel-color'])
+            if settings['template-mode'] == 'bs5':
+                settings['panel-color'] = process_panel_color(
+                    panel_color=settings['panel-color'],
+                    mode=settings['template-mode']
+                )
 
             div_html = generate_listing(settings=settings)
             brepository_div.replaceWith(div_html)
@@ -510,6 +694,12 @@ def brepository(content):
             settings['mode'] = get_attribute(brepository_item_div.attrs, 'mode', brepository_settings['mode'])
             settings['header'] = get_attribute(brepository_item_div.attrs, 'header', brepository_settings['header'])
             settings['panel-color'] = get_attribute(brepository_item_div.attrs, 'panel-color', brepository_settings['panel-color'])
+            if settings['template-mode'] == 'bs5':
+                settings['panel-color'] = process_panel_color(
+                    panel_color=settings['panel-color'],
+                    mode=settings['template-mode']
+                )
+
             settings['item'] = get_attribute(brepository_item_div.attrs, 'item', brepository_settings['item'])
             div_html = generate_item_card(settings=settings)
             if div_html:
@@ -675,6 +865,9 @@ def init_default_config(pelican):
 
     if 'BREPOSITORY_SOURCE' in pelican.settings:
         brepository_default_settings['data-source'] = pelican.settings['BREPOSITORY_SOURCE']
+
+    if 'BREPOSITORY_TEMPLATE_MODE' in pelican.settings:
+        brepository_default_settings['template-mode'] = pelican.settings['BREPOSITORY_TEMPLATE_MODE']
 
     if 'BREPOSITORY_TEMPLATE' in pelican.settings:
         brepository_default_settings['template'].update(pelican.settings['BREPOSITORY_TEMPLATE'])
