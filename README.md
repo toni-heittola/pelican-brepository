@@ -1,7 +1,7 @@
 Pelican-brepository - File repository for Pelican
 =================================================
 
-`pelican-brepository` is an open source Pelican plugin to produce personnel listings from yaml data structures. The plugin is developed to be used with Markdown content and Bootstrap 3 based template.
+`pelican-brepository` is an open source Pelican plugin to produce file listings from yaml data structures. The plugin is developed to be used with Markdown content and Bootstrap 3 based template.
 
 **Author**
 
