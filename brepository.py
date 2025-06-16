@@ -203,7 +203,7 @@ brepository_default_settings = {
                     {% if type_icon %}<div class="p-1">{{type_icon}}</div>{% endif %}
                     <div class="p-1">
                         {% if title %}
-                            <h5 class="list-group-item-heading {{item_css}}">{{title}} <i class="fa fa-download"></i></h5>
+                            <h5 class="list-group-item-heading {{item_css}}">{{title}} <i class="fa fa-solid fa-download"></i></h5>
                         {% endif %}
                         {% if size %}<span class="text-muted">({{size}})</span><br>{% endif %}
                         {% if version or package_type or password %}
@@ -279,7 +279,7 @@ brepository_default_settings = {
                     <a href="{{url}}" target="_blank">
                     {% endif %}
                     {% if title %}
-                        <span style="font-size:20px;">{{title}} <i class="fa fa-download"></i></span>
+                        <span style="font-size:20px;">{{title}} <i class="fa fa-solid fa-download"></i></span>
                     {% endif %}
                     {% if url %}
                     </a>
@@ -315,25 +315,25 @@ brepository_default_settings = {
       'audio': """
           <span class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-success"></i>
-            <i class="fa fa-file-audio-o fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-solid fa-file-audio fa-file-audio-o fa-stack-1x fa-inverse"></i>
           </span>
       """,
       'database': """
           <span class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-success"></i>
-            <i class="fa fa-database fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-solid fa-database fa-stack-1x fa-inverse"></i>
           </span>
       """,
       'model': """
           <span class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-success"></i>
-            <i class="fa fa-table fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-solid fa-table fa-stack-1x fa-inverse"></i>
           </span>
       """,
       'git': """
         <span class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x "></i>
-            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
         </span>
       """,
       'python': """
@@ -382,38 +382,38 @@ brepository_default_settings = {
       'python-package': """
         <span class="fa-stack fa-2x">
           <i class="fa fa-square fa-stack-2x text-warning"></i>
-          <i class="fa fa-gears fa-stack-1x fa-inverse"></i>
+          <i class="fa fa-solid fa-gears fa-stack-1x fa-inverse"></i>
         </span>
       """,
 
       'matlab-package': """
         <span class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-info"></i>
-            <i class="fa fa-gears fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-solid fa-gears fa-stack-1x fa-inverse"></i>
         </span>
       """,
       'latex': """
         <span class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-muted"></i>
-            <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-solid fa-file-text fa-file-text-o fa-stack-1x fa-inverse"></i>
         </span>
       """,
       'word': """
         <span class="fa-stack fa-2x">
           <i class="fa fa-square fa-stack-2x text-muted"></i>
-          <i class="fa fa-file-word-o fa-stack-1x fa-inverse"></i>
+          <i class="fa fa-solid fa-file-word fa-file-word-o fa-stack-1x fa-inverse"></i>
         </span>
       """,
       'doc': """
         <span class="fa-stack fa-2x">
           <i class="fa fa-square fa-stack-2x text-muted"></i>
-          <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
+          <i class="fa fa-solid fa-file-text fa-file-text-o fa-stack-1x fa-inverse"></i>
         </span>
       """,
       'theme': """
         <span class="fa-stack fa-2x">
           <i class="fa fa-square fa-stack-2x text-warning"></i>
-          <i class="fa fa-file-image-o fa-stack-1x fa-inverse"></i>
+          <i class="fa fa-solid fa-file-image fa-file-image-o fa-stack-1x fa-inverse"></i>
         </span>
       """
     },
